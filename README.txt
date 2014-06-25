@@ -20,7 +20,7 @@ Moodle module mod_fastchat
 
 INSTALLATION
 
-Just place the get_key directory inside your Moodle's local directory.
+Just place the getkey directory inside your Moodle's local directory.
 Install the plugin and browse to:
 
 Site Administration->Get key
