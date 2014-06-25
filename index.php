@@ -56,11 +56,12 @@ if($DB->record_exists('config_plugins', array ('plugin' => 'local_getkey', 'name
 	
 	
 	$record = new stdClass();
-	$record->plugin         = 'local_getkey';
+	$record->plugin = 'local_getkey';
 	$record->name = 'keyvalue';
 	$record->value = $k;
 	$DB->insert_record('config_plugins',$record);
 	echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$k, 3, 'box generalbox', 'jpoutput');
+		
 }else{
 
 	$jsmodule = array(
@@ -76,6 +77,14 @@ if($DB->record_exists('config_plugins', array ('plugin' => 'local_getkey', 'name
 	$mform->display();
 }
 
+//create vm token
+if(!$DB->record_exists('config_plugins', array ('plugin' => 'local_getkey', 'name' => 'tokencode')) ){
+	$record = new stdClass();
+	$record->plugin = 'local_getkey';
+	$record->name = 'tokencode';
+	$record->value = substr(  time(), -4).substr( "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" ,mt_rand( 0 ,20 ) ,3 ) .substr(  time(),0, 3);//random string
+	$DB->insert_record('config_plugins',$record);
+}
 
 echo $OUTPUT->footer();
 

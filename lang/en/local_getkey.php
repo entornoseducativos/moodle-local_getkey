@@ -29,5 +29,5 @@
 $string['pluginname'] = 'Get Key';
 $string['domain'] = 'Domain url';
 $string['missingdomain'] = 'Domain name missing';
-$string['message'] = 'To get licence Key for whiteboard/chat you need to submit this form with correct detail. You will get key only for specified Domain.';
-$string['keyis'] = 'Your lience key is ';
+$string['message'] = 'To get API Key for whiteboard/chat you need to submit this form with correct detail. You will get key only for specified Domain.';
+$string['keyis'] = 'Your API key is ';
