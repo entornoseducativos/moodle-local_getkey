@@ -6,21 +6,19 @@ Moodle - Get API Key from Vidya.io
 
 ABOUT
 
-This Moodle plugin get API key for vmchat/onetoone module from vidyamantra.
-The plugin save API key in Moodle db and use to authenticate vmchat/onetoone module.
+This Moodle plugin is to register API key required by other modules.
 
-SETTINGS
+USAGE
 
-This local plugin allows you to get key for:
-Moodle local plugin local_vmchat (footer chat )
-Moodle plugin mod_onetoone(whiteboard)
-Moodle module mod_fastchat
+This local plugin allows you to get API key required for:  
+Moodle local plugin local_vmchat (footer chat)  
+Moodle plugin mod_onetoone (whiteboard)  
+Moodle module mod_fastchat (Very fast chat replacing Moodle's default chat module)
 
 
 INSTALLATION
 
-Just place the getkey directory inside your Moodle's local directory.
-Install the plugin and browse to:
-Site Administration->Get key
-and submit the form to get API key from vidya.io.
-
+1) Place the getkey directory inside your Moodle's local directory.  
+2) Go to Site Administration -> notification area to install plugin   
+3) Browse to Site Administration->Get key   
+4) Fill form and click on submit button to get API key.   
