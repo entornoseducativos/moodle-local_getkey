@@ -36,54 +36,51 @@ admin_externalpage_setup('getkey');
 $PAGE->set_url(new moodle_url('/local/getkey/index.php'));
 
 
-$mform = new local_getkey_key_form(null, array('email'=>$USER->email, 'firstname'=>$USER->firstname , 'lastname'=>$USER->lastname ,'domain'=>$CFG->wwwroot));  
+$mform = new local_getkey_key_form(null, array('email' => $USER->email, 'firstname' => $USER->firstname ,
+    'lastname' => $USER->lastname , 'domain' => $CFG->wwwroot));
 
-if ($mform->is_cancelled()) {
-	//redirect($returnurl);
-} else if ($fromform = $mform->get_data()) {
-	//redirect($nexturl);
-}
-
+// There should be form submit
+// Form submitted throug js and result received in url.
 
 echo $OUTPUT->header();
 
+if ($DB->record_exists('config_plugins', array ('plugin' => 'local_getkey', 'name' => 'keyvalue'))) {
+    $result = $DB->get_field('config_plugins', 'value', array ('plugin' => 'local_getkey', 'name' => 'keyvalue'),
+            $strictness = IGNORE_MISSING);
+    echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$result, 3, 'box generalbox', 'jpoutput');
+} else if ($k) {
 
-if($DB->record_exists('config_plugins', array ('plugin' => 'local_getkey', 'name' => 'keyvalue')) ){
-	$result= $DB->get_field('config_plugins', 'value', array ('plugin' => 'local_getkey', 'name' => 'keyvalue'), $strictness=IGNORE_MISSING);
-	echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$result, 3, 'box generalbox', 'jpoutput');;	
-}elseif($k){
-	//echo $key;
-	
-	
-	$record = new stdClass();
-	$record->plugin = 'local_getkey';
-	$record->name = 'keyvalue';
-	$record->value = $k;
-	$DB->insert_record('config_plugins',$record);
-	echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$k, 3, 'box generalbox', 'jpoutput');
-		
-}else{
+    $record = new stdClass();
+    $record->plugin = 'local_getkey';
+    $record->name = 'keyvalue';
+    $record->value = $k;
+    $DB->insert_record('config_plugins', $record);
+    echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$k, 3, 'box generalbox', 'jpoutput');
 
-	$jsmodule = array(
+} else {
+    // Loading three other YUI modules.
+    $jsmodule = array(
                 'name' => 'local_getkey',
                 'fullpath' => '/local/getkey/module.js',
-                'requires' => array('json','jsonp', 'jsonp-url', 'io-base','node','io-form')); //on this line you are loading three other YUI modules
-   $PAGE->requires->js_init_call('M.local_getkey.init',null, false, $jsmodule);
-   $PAGE->requires->string_for_js('keyis', 'local_getkey');
+                'requires' => array('json', 'jsonp', 'jsonp-url', 'io-base', 'node', 'io-form'));
+    $PAGE->requires->string_for_js('keyis', 'local_getkey');
 
 
 
-	echo $OUTPUT->box(get_string('message','local_getkey'), "generalbox center clearfix");
-	$mform->display();
+    echo $OUTPUT->box(get_string('message', 'local_getkey'), "generalbox center clearfix");
+    $mform->display();
 }
 
-//create vm token
-if(!$DB->record_exists('config_plugins', array ('plugin' => 'local_getkey', 'name' => 'tokencode')) ){
-	$record = new stdClass();
-	$record->plugin = 'local_getkey';
-	$record->name = 'tokencode';
-	$record->value = substr(  time(), -4).substr( "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" ,mt_rand( 0 ,20 ) ,3 ) .substr(  time(),0, 3);//random string
-	$DB->insert_record('config_plugins',$record);
+// Create vm token.
+if (!$DB->record_exists('config_plugins', array ('plugin' => 'local_getkey', 'name' => 'tokencode'))) {
+    $record = new stdClass();
+    $record->plugin = 'local_getkey';
+    $record->name = 'tokencode';
+    $record->value = substr(  time(), -4).substr( "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" , mt_rand( 0 , 20 ) , 3 ) .
+            substr(  time(), 0, 3);// Random string.
+    $DB->insert_record('config_plugins', $record);
+}
+echo $OUTPUT->footer();ig_plugins',$record);
 }
 
 echo $OUTPUT->footer();
