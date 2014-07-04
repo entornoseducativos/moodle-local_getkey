@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-require_once("$CFG->dirroot/lib/formslib.php");
+require_once($CFG->dirroot.'/lib/formslib.php');
 
 class local_getkey_key_form extends moodleform {
 

@@ -27,7 +27,7 @@ M.local_getkey = {
     handleJSONP : function (data) {
         //Y.one("#jpoutput").setHTML(M.util.get_string('keyis', 'local_getkey') +data.key);
         //debugger;
-        window.location.href = "index.php?k = " + data.key;
+        window.location.href = "index.php?k="+data.key;
 
     },
 
@@ -60,7 +60,7 @@ M.local_getkey = {
         //Y.one('#id_cancel').set('disabled', 'disabled');
 
         // Send the request
-        Y.jsonp('https://www.vidyamantra.com/portal/getvmkey.php?data=' + form, {
+        Y.jsonp('https://www.vidyamantra.com/portal/getvmkey.php?data='+form, {
             method: 'GET',
             on: {
                 success: this.handleJSONP,
