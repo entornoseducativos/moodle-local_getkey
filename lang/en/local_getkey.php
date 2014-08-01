@@ -32,3 +32,11 @@ $string['missingdomain'] = 'Domain name missing';
 $string['message'] = 'To get API Key for whiteboard/chat you need to submit this form with correct detail. You will get key only for specified Domain.';
 $string['keyis'] = 'Your API key is ';
 $string['keynotsaved'] = 'API key not saved ';
+
+//Stat lang
+$string['graphheading'] = 'Usage Graph of vidya.io API ';
+$string['currentmonth'] = 'Current Month ';
+$string['previousmonth'] = 'Previous Month ';
+$string['year'] = '1 Year ';
+$string['today'] = '1 Day ';
+$string['nodata'] = 'No data is available for';

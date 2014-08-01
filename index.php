@@ -46,12 +46,46 @@ if ($mform->is_cancelled()) {
 } else if ($fromform = $mform->get_data()) {
     // Redirect($nexturl).
 }
-
 echo $OUTPUT->header();
 
-
 if ($result = get_config('local_getkey', 'keyvalue')) {
-    echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$result, 3, 'box generalbox', 'jpoutput');
+    //echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$result, 3, 'box generalbox adminwarning', 'jpoutput');
+    //echo $OUTPUT->notification(get_string('keyis', 'local_getkey').$result);
+    echo html_writer::tag('div', get_string('keyis', 'local_getkey').$result, array('class' => 'box generalbox alert'));
+
+    // Stat of vidya.io api start------------------------
+    $PAGE->requires->js('/local/getkey/stat/d3.v3.min.js');
+    $PAGE->requires->js('/local/getkey/stat/underscore-min.js');
+    $PAGE->requires->js('/local/getkey/stat/function.js');
+    $PAGE->requires->js('/local/getkey/stat/jsonp.js');
+
+    $module = array(
+        'name'      => 'getkey_stat',
+        'fullpath'  => '/local/getkey/stat/stat.js',
+        'requires' => array('node', 'event'),
+        'strings'   => array(),
+    );
+    $PAGE->requires->js_init_call('getkey_stat_init', null, false, $module);
+
+    echo html_writer::tag('h3', get_string('graphheading', 'local_getkey'));
+    echo html_writer::start_tag('div', array('id' => 'graph', 'class' => 'aGraph'));
+        echo html_writer::start_tag('div', array('id' => 'option'));
+            echo html_writer::empty_tag('input', array(
+            'type' => 'button', 'name' => 'dstat', 'value' => get_string('today', 'local_getkey'), 'id' => 'id_day_stat'));
+            echo html_writer::empty_tag('input', array(
+            'type' => 'button', 'name' => 'currmstat', 'value' => get_string('currentmonth', 'local_getkey'), 'id' => 'id_currmonth_stat'));
+            echo html_writer::empty_tag('input', array(
+            'type' => 'button', 'name' => 'premstat', 'value' => get_string('previousmonth', 'local_getkey'), 'id' => 'id_premonth_stat'));
+            echo html_writer::empty_tag('input', array(
+            'type' => 'button', 'name' => 'ystat', 'value' => get_string('year', 'local_getkey'), 'id' => 'id_year_stat'));
+        echo html_writer::end_tag('div');
+        echo html_writer::start_tag('div', array('id' => 'msggraph', 'class' => 'aGraph'));
+        echo html_writer::end_tag('div');
+        echo html_writer::start_tag('div', array('id' => 'usergraph', 'class' => 'aGraph'));
+        echo html_writer::end_tag('div');
+    echo html_writer::end_tag('div');
+    // Stat of vidya.io api end------------------------
+
 } else if ($k) {
     if (!set_config('keyvalue', $k, 'local_getkey')) {
         echo $OUTPUT->error_text(get_string('keynotsaved', 'local_getkey'));
