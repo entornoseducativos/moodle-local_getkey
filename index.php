@@ -65,7 +65,7 @@ if ($result = get_config('local_getkey', 'keyvalue')) {
         'requires' => array('node', 'event'),
         'strings'   => array(),
     );
-    $PAGE->requires->js_init_call('getkey_stat_init', null, false, $module);
+    $PAGE->requires->js_init_call('getkey_stat_init', array($result), false, $module);
 
     echo html_writer::tag('h3', get_string('graphheading', 'local_getkey'));
     echo html_writer::start_tag('div', array('id' => 'graph', 'class' => 'aGraph'));

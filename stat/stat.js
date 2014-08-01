@@ -26,13 +26,14 @@
    var D_RANGE = 6;
 
 var cfg = {
-    'url':"http://192.168.1.128:8003",
-    'lKey' : '100-48e5642663c60b93c4f4bb',
-    'sDate' : '2014,1',
-    'eDate' : '2014,8'
+    'url':"https://c.vidya.io",
+    'lKey' : '',
+    'sDate' : '',
+    'eDate' : ''
 }
 var getkey_stat = {};
-function getkey_stat_init(Y) {
+function getkey_stat_init(Y,param) {
+    cfg.lKey = param;
     var year = dateFunction('year');
     var month = dateFunction('month');
     var preMonth = dateFunction('premonth');
