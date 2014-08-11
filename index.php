@@ -52,7 +52,7 @@ if ($result = get_config('local_getkey', 'keyvalue')) {
     //echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$result, 3, 'box generalbox adminwarning', 'jpoutput');
     //echo $OUTPUT->notification(get_string('keyis', 'local_getkey').$result);
     echo html_writer::tag('div', get_string('keyis', 'local_getkey').$result, array('class' => 'box generalbox alert'));
-
+    
     // Stat of vidya.io api start------------------------
     $PAGE->requires->js('/local/getkey/stat/d3.v3.min.js');
     $PAGE->requires->js('/local/getkey/stat/underscore-min.js');
@@ -65,6 +65,7 @@ if ($result = get_config('local_getkey', 'keyvalue')) {
         'requires' => array('node', 'event'),
         'strings'   => array(),
     );
+    $PAGE->requires->strings_for_js(array('msggraph', 'usrgraph', 'nodata'), 'local_getkey');
     $PAGE->requires->js_init_call('getkey_stat_init', array($result), false, $module);
 
     echo html_writer::tag('h3', get_string('graphheading', 'local_getkey'));

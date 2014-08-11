@@ -88,7 +88,7 @@ function updateData(sDate,eDate,range) {
             mgraphObj.init(cfg,data,"#msggraph",margin,margin2,"m");
             msgGraph(data);
         }else{
-            document.getElementById('msggraph').innerHTML = "No data is available for Message graph.";
+            document.getElementById('msggraph').innerHTML = M.util.get_string('nodata','local_getkey','message');
         }
     })
 
@@ -125,7 +125,7 @@ function updateData(sDate,eDate,range) {
             ugraphObj.init(cfg,data,"#usergraph",margin,margin2,"u");
             userGraph(data);
         }else{
-           document.getElementById('usergraph').innerHTML = "No data is available for user graph.";
+           document.getElementById('usergraph').innerHTML = M.util.get_string('nodata','local_getkey','users');
         }
     });
 }
@@ -157,7 +157,7 @@ var graphObj = {
     title : 'Graph',
     _this :this,
 
-    dateFn : function(d) {  return (new Date(d.date*1000)); /* timestamp to date*/ },
+    dateFn : function(d) {  return new Date(d.date*1000); /* timestamp to date*/ },
     valueFn : function(d) { return d.value },
 
     init : function(cfg,data,divid,margin,margin2,title, callback) {
@@ -192,9 +192,9 @@ var graphObj = {
             //.attr("height", this.height + this.margin.top + this.margin.bottom);
 
         if(title == "m"){
-            var gtitle = "Message Graph";
+            var gtitle = M.util.get_string('msggraph','local_getkey');
         }else{
-            var gtitle = "Users Graph";
+            var gtitle = M.util.get_string('usrgraph','local_getkey');
         }
         this.graph.append("text")
         .attr("x", (this.width / 2))

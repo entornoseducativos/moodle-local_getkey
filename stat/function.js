@@ -39,13 +39,24 @@ function toTimestamp(year,month,day,hour,minute,second){
 }
 
 /**
+ * Function to convert date string into timestamp
+ * (Since safari does not support inbilt js function)
+ * @param date string (yyyy,mm,dd)
+ * @return timestamp
+**/
+function convertStringDate(myDate){
+    myDate = myDate.split(",");
+    var t = toTimestamp(myDate[0],myDate[1],myDate[2]);
+    return t*1000;       
+}
+
+/**
  * Function to extend x axis value
  * Return array of object with all missing date(x axis)
  * 
  * Range should be max or min value of dataobject
 **/
 function scaleLimit(d,range){
-    //console.log("range = "+range);
     var size = d.length-1;
     if(range > M_RANGE){
         var diff = 60; //minute
@@ -63,10 +74,8 @@ function scaleLimit(d,range){
             value: 0,
             date: stpoint
         });
-        //stpoint = stpoint+3600; //hourly
-        stpoint = stpoint+diff;
+        stpoint = stpoint+diff; // hourly (3600),min (60)
    }
-   //console.log(rarray);
    return rarray;
 }
 /**
@@ -170,14 +179,14 @@ function msgGraph(data) {
 
     //console.log("start = "+cfg.sDate);console.log("end = "+cfg.eDate);console.log("range = "+cfg.range);
 
-    mgraphObj.x.domain([new Date(mgraphObj.cfg.sDate), new Date()]);
-    //x.domain(d3.extent(data,mgraphObj.dateFn));//for future use
+    mgraphObj.x.domain([new Date(convertStringDate(mgraphObj.cfg.sDate)), new Date()]);
+    //mgraphObj.x.domain(d3.extent(data,mgraphObj.dateFn));//for future use
     mgraphObj.y.domain(d3.extent(data,mgraphObj.valueFn));
     mgraphObj.x2.domain(mgraphObj.x.domain());
     mgraphObj.y2.domain(mgraphObj.y.domain());
 
-    mgraphObj.focus.append("svg:path").datum(data).attr("class", "area").attr("d", mgraphObj.area1(data));
-    mgraphObj.context.append("svg:path").datum(data).attr("class", "area").attr("d", mgraphObj.area2(data));
+    mgraphObj.focus.append("svg:path").datum(data).attr("class", "area").style("clip-path", "url(#clip)").attr("d", mgraphObj.area1(data));
+    mgraphObj.context.append("svg:path").datum(data).attr("class", "area").style("clip-path", "url(#clip)").attr("d", mgraphObj.area2(data));
 
     addTooltip(mgraphObj.div, data, "Msg",'m');
 
@@ -224,15 +233,15 @@ function userGraph(data) {
 
     var data = data.slice()
 
-    ugraphObj.x.domain([new Date(ugraphObj.cfg.sDate), new Date()]);
+    ugraphObj.x.domain([new Date(convertStringDate(ugraphObj.cfg.sDate)), new Date()]);
     //x.domain(d3.extent(data,dateFn));
     //ugraphObj.y.domain(d3.extent(data,ugraphObj.valueFn));
     ugraphObj.y.domain([0,d3.max(data, function(d) {return Math.max(d.value, d.avg); })]);
     ugraphObj.x2.domain(ugraphObj.x.domain());
     ugraphObj.y2.domain(ugraphObj.y.domain());
 
-    ugraphObj.focus.append("svg:path").datum(data).attr("class", "area").attr("d", ugraphObj.area1(data));
-    ugraphObj.context.append("svg:path").datum(data).attr("class", "area").attr("d", ugraphObj.area2(data));
+    ugraphObj.focus.append("svg:path").datum(data).attr("class", "area").style("clip-path", "url(#clip)").attr("d", ugraphObj.area1(data));
+    ugraphObj.context.append("svg:path").datum(data).attr("class", "area").style("clip-path", "url(#clip)").attr("d", ugraphObj.area2(data));
 
     addTooltip(ugraphObj.div, data, "Max User",'u');
 
@@ -266,7 +275,6 @@ function userGraph(data) {
         .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
         .attr("transform", "translate("+ (ugraphObj.margin.right- ugraphObj.margin.left) +","+(ugraphObj.height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
         .text("Users");
-
 }
 
 
