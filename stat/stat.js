@@ -154,7 +154,7 @@ var graphObj = {
     height2 : 0,
     div : null,
     error : null,
-    title : 'Graph',
+    title : 'Graphs',
     _this :this,
 
     dateFn : function(d) {  return new Date(d.date*1000); /* timestamp to date*/ },
