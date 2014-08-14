@@ -35,7 +35,6 @@ admin_externalpage_setup('getkey');
 
 $PAGE->set_url(new moodle_url('/local/getkey/index.php'));
 
-
 $mform = new local_getkey_key_form(null, array('email' => $USER->email, 'firstname' => $USER->firstname ,
     'lastname' => $USER->lastname , 'domain' => $CFG->wwwroot));
 
@@ -49,10 +48,14 @@ if ($mform->is_cancelled()) {
 echo $OUTPUT->header();
 
 if ($result = get_config('local_getkey', 'keyvalue')) {
-    //echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$result, 3, 'box generalbox adminwarning', 'jpoutput');
-    //echo $OUTPUT->notification(get_string('keyis', 'local_getkey').$result);
-    echo html_writer::tag('div', get_string('keyis', 'local_getkey').$result, array('class' => 'box generalbox alert'));
-    
+    //echo html_writer::tag('div', get_string('keyis', 'local_getkey').$result, array('class' => 'box generalbox alert'));
+    echo html_writer::start_tag('div', array('class' => 'box generalbox alert'));
+    echo get_string('keyis', 'local_getkey').$result."\t";
+    $url = new moodle_url('/local/getkey/savekey.php', array('action'=>'confirmdelete', 'sesskey'=>sesskey()));
+    echo  html_writer::link($url, '<img src = "'.$OUTPUT->pix_url('t/delete').'" class = "iconsmall" alt="'.get_string('delete').'" title = "'.get_string('delete').'" />');
+    echo html_writer::end_tag('div');
+
+
     // Stat of vidya.io api start------------------------
     $PAGE->requires->js('/local/getkey/stat/d3.v3.min.js');
     $PAGE->requires->js('/local/getkey/stat/underscore-min.js');
@@ -60,10 +63,10 @@ if ($result = get_config('local_getkey', 'keyvalue')) {
     $PAGE->requires->js('/local/getkey/stat/jsonp.js');
 
     $module = array(
-        'name'      => 'getkey_stat',
-        'fullpath'  => '/local/getkey/stat/stat.js',
+        'name' => 'getkey_stat',
+        'fullpath' => '/local/getkey/stat/stat.js',
         'requires' => array('node', 'event'),
-        'strings'   => array(),
+        'strings' => array(),
     );
     $PAGE->requires->strings_for_js(array('msggraph', 'usrgraph', 'nodata'), 'local_getkey');
     $PAGE->requires->js_init_call('getkey_stat_init', array($result), false, $module);
@@ -87,13 +90,14 @@ if ($result = get_config('local_getkey', 'keyvalue')) {
     echo html_writer::end_tag('div');
     // Stat of vidya.io api end------------------------
 
-} else if ($k) {
+} else if ($k) { // Key received from vidya.io.
     if (!set_config('keyvalue', $k, 'local_getkey')) {
         echo $OUTPUT->error_text(get_string('keynotsaved', 'local_getkey'));
     }
     echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$k, 3, 'box generalbox', 'jpoutput');
 
 } else {
+    echo html_writer::tag('div', get_string('havekey', 'local_getkey'), array('class' => 'box generalbox alert-error'));
     // Loading three other YUI modules.
     $jsmodule = array(
                 'name' => 'local_getkey',

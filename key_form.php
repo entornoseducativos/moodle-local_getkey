@@ -44,3 +44,18 @@ class local_getkey_key_form extends moodleform {
         $this->add_action_buttons($cancel = false);
     }
 }
+
+
+class local_getkey_savekey_form extends moodleform {
+
+    function definition() {
+        $kform =& $this->_form;
+        $kform->addElement('text', 'key', get_string('apikey', 'local_getkey'), 'maxlength="100" size="25" ');
+        $kform->setType('key', PARAM_NOTAGS);
+        $kform->addRule('key', get_string('missingkey', 'local_getkey'), 'required', null, 'server');
+        // Set default value by using a passed parameter.
+        //$mform->setDefault('domain', $this->_customdata['domain']);
+
+        $this->add_action_buttons($cancel = true);
+    }
+}

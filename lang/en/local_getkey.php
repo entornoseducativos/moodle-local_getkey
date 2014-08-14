@@ -42,3 +42,8 @@ $string['today'] = 'Today ';
 $string['msggraph'] = 'Message Graph';
 $string['usrgraph'] = 'Users Graph';
 $string['nodata'] = 'No data available for {$a} graph';
+$string['apikey'] = 'Vidya.io API key';
+$string['missingkey'] = 'API key missing';
+$string['confirmkeydeletion'] = 'Confirm API key deletion';
+$string['confirmdelete'] = 'Confirm delete';
+$string['havekey'] = "Already have Vidya.io API key? <a href='savekey.php'>click here</a>";
