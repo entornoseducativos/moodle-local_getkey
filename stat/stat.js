@@ -42,16 +42,22 @@ function getkey_stat_init(Y,param) {
     var context = M.getkey_stat_init;
     this.Y = Y;
 
-    Y.one('#id_day_stat').on('click', function(){updateData(day.st, day.ed, D_RANGE)});
-    Y.one('#id_currmonth_stat').on('click', function(){ updateData(month.st, month.ed, M_RANGE) } );
-    Y.one('#id_premonth_stat').on('click', function(){ updateData(preMonth.st, preMonth.ed, M_RANGE) } );
-    Y.one('#id_year_stat').on('click',  function(){ updateData(year.st, year.ed, Y_RANGE) } );
+    Y.one('#id_day_stat').on('click', function() { hightlightButton(Y,'#id_day_stat'); updateData(day.st, day.ed, D_RANGE) } );
+    Y.one('#id_currmonth_stat').on('click', function() { hightlightButton(Y,'#id_currmonth_stat'); updateData(month.st, month.ed, M_RANGE) } );
+    Y.one('#id_premonth_stat').on('click', function() { hightlightButton(Y,'#id_premonth_stat'); updateData(preMonth.st, preMonth.ed, M_RANGE) } );
+    Y.one('#id_year_stat').on('click',  function() { hightlightButton(Y,'#id_year_stat'); updateData(year.st, year.ed, Y_RANGE) } );
     if(document.getElementById("msggraph").innerHTML == ""){
+        hightlightButton(Y,'#id_year_stat');
         updateData(year.st, year.ed, Y_RANGE);
     }
 }
+// Highlight button
+function hightlightButton(Y,btn){
+    Y.all("#option input[type=button]").removeClass('btnhighlight');
+    Y.one(btn).addClass("btnhighlight");
+}
 
-function updateData(sDate,eDate,range) {
+function updateData(sDate,eDate,range) { 
     cfg.sDate = sDate;
     cfg.eDate = eDate;
     cfg.range = range;
@@ -85,6 +91,7 @@ function updateData(sDate,eDate,range) {
             var margin = {top: 10, right: 10, bottom: 100, left: 50};
             var margin2 = {top: 430, right: 10, bottom: 22, left: 50};
             mgraphObj = clone(graphObj);
+            //console.log('msg '+data);
             mgraphObj.init(cfg,data,"#msggraph",margin,margin2,"m");
             msgGraph(data);
         }else{
@@ -154,7 +161,7 @@ var graphObj = {
     height2 : 0,
     div : null,
     error : null,
-    title : 'Graphs',
+    title : 'Graph',
     _this :this,
 
     dateFn : function(d) {  return new Date(d.date*1000); /* timestamp to date*/ },

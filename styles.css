@@ -54,3 +54,6 @@
 #page-admin-local-getkey-index .msggraphheading{
     font: 20px sans-serif;
 }
+#page-admin-local-getkey-index div#option .btnhighlight{
+    color: red;
+}
