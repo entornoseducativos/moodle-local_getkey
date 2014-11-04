@@ -22,3 +22,10 @@ INSTALLATION
 2) Go to Site Administration -> notification area to install plugin   
 3) Browse to Site Administration->Get key   
 4) Fill form and click on submit button to get API key.   
+
+
+Changelog v 1.2
+
+1) Statistics for Message and users
+2) If you already have API key, No need to fill form, You can directly save the existing key.
+3) Opting added to delete existing key.  
