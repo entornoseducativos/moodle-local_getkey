@@ -13,19 +13,16 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
- * This plugin sends users a welcome message after logging in
- * and notify a moderator a new user has been added
- * it has a settings page that allow you to configure the messages
- * send.
+ * This plugin gets API key from vidya.io
+ * and use it in other plugin (vmchat,virtualclass)
  *
  * @package    local
  * @subpackage getkey
  * @author     Pinky Sharma 
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
+$plugin->component = 'local_getkey'; 
 $plugin->version  = 2014110500;
 $plugin->requires = 2012120300;
 $plugin->release = '1.2.1 (Build: 2014110500)';
