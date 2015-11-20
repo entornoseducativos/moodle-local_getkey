@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * This plugin gets API key from vidya.io
  * and use it in other plugin (vmchat,virtualclass)
@@ -22,8 +23,9 @@
  * @author     Pinky Sharma 
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+ 
 $plugin->component = 'local_getkey'; 
-$plugin->version  = 2014110500;
+$plugin->version  = 2015112000;
 $plugin->requires = 2012120300;
-$plugin->release = '1.2.1 (Build: 2014110500)';
+$plugin->release = '1.2.2 (Build: 2015112000)';
 $plugin->maturity = MATURITY_STABLE;
