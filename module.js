@@ -27,8 +27,11 @@ M.local_getkey = {
     handleJSONP : function (data) {
         //Y.one("#jpoutput").setHTML(M.util.get_string('keyis', 'local_getkey') +data.key);
         //debugger;
-        window.location.href = "index.php?k="+data.key;
-
+        if(data.error){
+            window.location.href = "index.php?e="+data.error;
+        }else{
+           window.location.href = "index.php?k="+data.key; 
+        }
     },
 
     handleFailure : function (data) {

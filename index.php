@@ -28,6 +28,7 @@ require_once($CFG->libdir.'/adminlib.php');
 require_once('key_form.php');
 
 $k = optional_param('k', 0, PARAM_NOTAGS);
+$e = optional_param('e', null, PARAM_NOTAGS);
 
 require_login();
 require_capability('moodle/site:config', context_system::instance());
@@ -97,7 +98,11 @@ if ($result = get_config('local_getkey', 'keyvalue')) {
     echo $OUTPUT->heading(get_string('keyis', 'local_getkey').$k, 3, 'box generalbox', 'jpoutput');
 
 } else {
-    echo html_writer::tag('div', get_string('havekey', 'local_getkey'), array('class' => 'box generalbox alert-error'));
+    if($e){
+        echo html_writer::tag('div', $e, array('class' => 'alert alert-error'));
+    }
+
+    echo html_writer::tag('div', get_string('havekey', 'local_getkey'), array('class' => 'alert alert-notice'));
     // Loading three other YUI modules.
     $jsmodule = array(
                 'name' => 'local_getkey',

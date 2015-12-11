@@ -25,7 +25,7 @@
  */
  
 $plugin->component = 'local_getkey'; 
-$plugin->version  = 2015112000;
+$plugin->version  = 2015121100;
 $plugin->requires = 2012120300;
-$plugin->release = '1.2.2 (Build: 2015112000)';
+$plugin->release = '1.3 (Build: 2015121100)';
 $plugin->maturity = MATURITY_STABLE;
