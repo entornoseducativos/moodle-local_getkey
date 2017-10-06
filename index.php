@@ -53,7 +53,7 @@ if ($result = get_config('local_getkey', 'keyvalue')) {
     echo html_writer::start_tag('div', array('class' => 'box generalbox alert'));
     echo get_string('keyis', 'local_getkey').$result."\t";
     $url = new moodle_url('/local/getkey/savekey.php', array('action'=>'confirmdelete', 'sesskey'=>sesskey()));
-    echo  html_writer::link($url, '<img src = "'.$OUTPUT->pix_url('t/delete').'" class = "iconsmall" alt="'.get_string('delete').'" title = "'.get_string('delete').'" />');
+    echo  html_writer::link($url, '<img src = "'.$OUTPUT->image_url('t/delete').'" class = "iconsmall" alt="'.get_string('delete').'" title = "'.get_string('delete').'" />');
     echo html_writer::end_tag('div');
 
 
